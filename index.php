@@ -67,11 +67,18 @@
 				$stm->execute();
 				while($row=$stm->fetch()) {
 					$finish = $row['finish'] == 1 ? 'finish' : '';
-					$task .="<li class='list-group-item task form-check'><span class='".$finish."'>".$row['name']."</span>
+					/*$task .="<li class='list-group-item task form-check'><span class='".$finish."'>".$row['name']."</span>
 					<div class='actions'>
 						<a href='index.php?finish=".$row['id']."' class='btn btn-primary btn-sm'>Finish</a>
 						<a href='index.php?delete=".$row['id']."' class='btn btn-danger btn-sm'>Delete</a>
-					</div></li>";
+					</div></li>";*/
+					$task .= <<<EOT
+					<li class="list-group-item task form-check"><span class="{$finish}"">{$row['name']}</span>
+					<div class="actions">
+						<a href="index.php?finish={$row['id']}" class="btn btn-primary btn-sm">Finish</a>
+						<a href="index.php?delete={$row['id']}" class="btn btn-danger btn-sm">Delete</a>
+					</div></li>
+EOT;
 				}
 				return $task;
 			}
